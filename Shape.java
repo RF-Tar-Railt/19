@@ -1,6 +1,8 @@
 package Chapter3;
-
-public abstract class Shape {
+interface Comparable{
+	int compareTo(Object obj);
+}
+public abstract class Shape implements Comparable{
 	private String name;
 	public Shape(String shapeName)
 	{name = shapeName;}
@@ -12,7 +14,37 @@ public abstract class Shape {
 	
 	public double semiPerimeter()
 	{return perimeter()/2 ;}
-	
+	public int compareTo(Object obj)
+	{
+		final double EPSILON = 1.0e-15;
+		//slightly bigger than
+		//machine precision
+		Shape rhs = (Shape) obj;
+		double diff = area() - rhs.area();
+		if (Math.abs(diff) <= EPSILON * Math.abs(area()))
+			return 0; //area of this shape equals area of obj
+		else if (diff < 0)
+			return -1; //area of this shape less than area of obj
+		else
+			return 1; //area of this shape greater than area of obj
+	}
+	public class delta extends Shape
+	{
+		private double sideA;
+		private double sideB;
+		private double sideC;
+		public delta(double deltaSideA,double deltaSideB,double deltaSideC,String deltaName)
+		{
+			super(deltaName);
+			sideA = deltaSideA;
+			sideB = deltaSideB;
+			sideC = deltaSideC;
+		}
+		public double perimeter()
+		{return sideA + sideB + sideC;}
+		public double area()
+		{return Math.sqrt(semiPerimeter()*(semiPerimeter()-sideA)*(semiPerimeter()-sideB)*(semiPerimeter()-sideC));}
+	}
 	public class CFX extends Shape
 	{
 		private double length;
