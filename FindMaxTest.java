@@ -1,5 +1,5 @@
 package Chapter3;
-
+import java.util.Scanner;
 public class FindMaxTest
 {
 	/** Return the larger of two objects a and b. */
@@ -23,6 +23,38 @@ public class FindMaxTest
 		Shape s3 = (Shape) max(s1, s2);
 		System.out.println("The larger shape is Shape:" +
 				s3.getName());
+		
+		System.out.print("Please select a shape: ");
+		Scanner in = new Scanner(System.in);
+		String str = in.next();
+		
+		if (str.equals("delta") || str.equals("Delta"))
+		{
+			System.out.print("Please input name: ");
+			String delName = in.next();
+			System.out.print("Please input a: ");
+			double a=in.nextDouble();
+			System.out.print("Please input b: ");
+			double b=in.nextDouble();
+			System.out.print("Please input c: ");
+			double c=in.nextDouble();
+			Shape s4 = new delta(a,b,c,delName);
+			System.out.println("Area of " + s4.getName() + " is " +
+					s4.area());
+		}
+		
+		if (str.equals("Square") || str.equals("square"))
+		{
+			System.out.print("Please input name: ");
+			String delName = in.next();
+			System.out.print("Please input side: ");
+			double side=in.nextDouble();
+			Shape s4 = new Square(side,delName);
+			System.out.println("Area of " + s4.getName() + " is " +
+					s4.area());
+		}
+		else
+			System.out.print("Unkown Shape");
 	}
 }
 
